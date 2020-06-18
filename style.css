@@ -74,5 +74,28 @@ body {
 
 .showcase {
     background: rgba(0, 0, 0, 0.1);
-    
+    color: #777;
+    padding: 5px, 15px;
+    border-radius: 5px;
+    list-style-type: none;
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.showcase li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 10px;
+}
+
+.screen {
+    background-color: #fff;
+    height: 80px;
+    width: 100%;
+    margin: 15px 0px;
+    transform: rotateX(-45deg);
+    box-shadow: 0 3px;
+    border-radius: 10px;
 }
