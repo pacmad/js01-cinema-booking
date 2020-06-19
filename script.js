@@ -4,6 +4,7 @@ const count = document.getElementById('count');
 const amount = document.getElementById('amount');
 const movieSelect = document.getElementById('movie');
 
+// load the data whenload the page
 populateUI();
 
 let price = +movieSelect.value;
@@ -14,7 +15,9 @@ function populateUI(){
     //convert the string into the array(opposite of JSON.stringify)
     const selectedSeats = JSON.parse(localStorage.getItem('selectedSeats'));
 
+    //if it's empty, don't do it
     if(selectedSeats !== null && selectedSeats.length > 0){
+        //forEach () take two parameter because the data reteived has two parameter
         seats.forEach((seat, index) => {
             if(selectedSeats.indexOf(index) > -1){
                 seat.classList.add('selected');
@@ -22,22 +25,19 @@ function populateUI(){
         });
     }
 
+    //retreive data from the localStorage
     const selectedMovieIndex = localStorage.getItem('selectedMovieIndex');
-    const selectedMoviePrice = localStorage.getItem('selectedMoviePrice');
     
+    //if it exists then assigns it
     if(selectedMovieIndex !== null){
         movieSelect.selectedIndex = selectedMovieIndex;
     }
-
-
-    
 }
 
-// Save selected movie index and price
-function setMovieData(index, price){
+// Save the index of the selected movie
+function setMovieData(index){
     //no need JSON.stringify, because it's not an array
     localStorage.setItem('selectedMovieIndex', index);
-    localStorage.setItem('selextedMoviePrice', price);
 }
 
 // Update count and amount
@@ -50,10 +50,10 @@ function updateSelectedCount(){
     //because it's an array, so need to use JSON.stringify
     localStorage.setItem('selectedSeats', JSON.stringify(seatsIndex));
 
-
-
+    //count is the number of selectedSeats
     const selectedSeatsCount = selectedSeats.length;
     
+    // change the count and amount 
     count.innerText = selectedSeatsCount;
     amount.innerText = selectedSeatsCount * price;
 }
@@ -61,16 +61,21 @@ function updateSelectedCount(){
 // Movie select event
 movieSelect.addEventListener('click', (e) => {
     price = +e.target.value;
-    setMovieData(e.target.selectedIndex, price);
+
+    //selectedIndex is the property that return the index of the selected element
+    setMovieData(e.target.selectedIndex);
     updateSelectedCount();
 })
 
 // Seats select event
 container.addEventListener('click', (e) => {
+    
+    //check to see if the the click event clicks on seat class but not occupied 
     if(e.target.classList.contains('seat') && !e.target.classList.contains('occupied')){
-        e.target.classList.toggle('selected');
+        e.target.classList.toggle('selected'); //want to change it
         updateSelectedCount();
     }
 })
 
+// Update 
 updateSelectedCount();
