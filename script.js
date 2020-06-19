@@ -45,6 +45,7 @@ function updateSelectedCount(){
     const selectedSeats = document.querySelectorAll('.row .seat.selected');
 
     //get the index and save it as an array
+    //map is similar to forEach
     const seatsIndex = [...selectedSeats].map(seat => [...seats].indexOf(seat));
 
     //because it's an array, so need to use JSON.stringify
