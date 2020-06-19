@@ -4,7 +4,34 @@ const count = document.getElementById('count');
 const amount = document.getElementById('amount');
 const movieSelect = document.getElementById('movie');
 
+populateUI();
+
 let price = +movieSelect.value;
+
+// Get data from localstorage and populate UI
+function populateUI(){
+
+    //convert the string into the array(opposite of JSON.stringify)
+    const selectedSeats = JSON.parse(localStorage.getItem('selectedSeats'));
+
+    if(selectedSeats !== null && selectedSeats.length > 0){
+        seats.forEach((seat, index) => {
+            if(selectedSeats.indexOf(index) > -1){
+                seat.classList.add('selected');
+            }
+        });
+    }
+
+    const selectedMovieIndex = localStorage.getItem('selectedMovieIndex');
+    const selectedMoviePrice = localStorage.getItem('selectedMoviePrice');
+    
+    if(selectedMovieIndex !== null){
+        movieSelect.selectedIndex = selectedMovieIndex;
+    }
+
+
+    
+}
 
 // Save selected movie index and price
 function setMovieData(index, price){
@@ -34,7 +61,7 @@ function updateSelectedCount(){
 // Movie select event
 movieSelect.addEventListener('click', (e) => {
     price = +e.target.value;
-    setMovieData(e.target.selectedIndex, e.target.value);
+    setMovieData(e.target.selectedIndex, price);
     updateSelectedCount();
 })
 
@@ -45,3 +72,5 @@ container.addEventListener('click', (e) => {
         updateSelectedCount();
     }
 })
+
+updateSelectedCount();
