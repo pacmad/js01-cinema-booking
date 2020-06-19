@@ -1,2 +1,2 @@
-# Cinema-Booking
-This is the front end of seat booking system using javascript
+# js01-cinema-booking
+This is a simple front end of seat booking system using javascript
